@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layoutDirection="locale"
-    android:id="@+id/activity_main_swipe_refresh_layout"
-    tools:context=".MainActivity">
+<layout>
 
-    <LinearLayout
+    <data class="MainActivityBinding" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main_swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layoutDirection="locale"
+        tools:context=".MainActivity">
 
-        <include layout="@layout/app_toolbar"/>
-
-        <include layout="@layout/content_empty"/>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <include layout="@layout/content_main"/>
+            <include
+                android:id="@+id/activity_main_toolbar_layout"
+                layout="@layout/app_toolbar" />
 
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bar"
+            <include
+                android:id="@+id/activity_main_empty_view_layout"
+                layout="@layout/content_empty" />
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="bottom"
-                app:backgroundTint="?attr/colorPrimary"
-                app:navigationIcon="@drawable/ic_baseline_menu_24" />
+                android:layout_height="match_parent">
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/next_days_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/next_15_days_label"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:backgroundTint="#00bcd4"
-                app:layout_anchor="@id/bar"
-                app:strokeColor="@android:color/white" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <include
+                    android:id="@+id/activity_main_content_main_layout"
+                    layout="@layout/content_main" />
 
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/white"
+                    android:backgroundTint="@android:color/white"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:fabAnimationMode="slide"
+                    app:hideOnScroll="true"
+                    app:navigationIcon="@drawable/ic_baseline_menu_24" />
 
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/next_days_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/next_15_days_label"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="#00bcd4"
+                    app:layout_anchor="@id/bar"
+                    app:strokeColor="@android:color/white" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
-
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
