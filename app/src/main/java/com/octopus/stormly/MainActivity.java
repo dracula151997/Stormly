@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextSwitcher;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.octopus.stormly.databinding.MainActivityBinding;
 import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding mainActivityBinding;
@@ -28,6 +31,22 @@ public class MainActivity extends AppCompatActivity {
         initSwipeRefreshLayout();
         initTextSwitchers();
 
+        settingDefaultData();
+        LottieAnimationView lottieView = mainActivityBinding.activityMainContentMainLayout.contentMainWeatherAnimationView;
+        lottieView.setAnimation(R.raw.rainy_weather);
+        lottieView.playAnimation();
+
+
+    }
+
+    private void settingDefaultData() {
+        String tempValue = String.format(Locale.getDefault(), "%.0f", 10.5);
+        String humidityValue = String.format(Locale.getDefault(), "%d%%", 5);
+        String windSpeedValue = String.format(Locale.getDefault(), "%.0f km/hr", 10.0);
+        mainActivityBinding.activityMainContentMainLayout.setDesc("Rainy");
+        mainActivityBinding.activityMainContentMainLayout.setTemp(tempValue);
+        mainActivityBinding.activityMainContentMainLayout.setHumidity(humidityValue);
+        mainActivityBinding.activityMainContentMainLayout.setWind(windSpeedValue);
     }
 
     private void initTextSwitchers() {
@@ -35,18 +54,15 @@ public class MainActivity extends AppCompatActivity {
         TextSwitcher humidityTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainHumidityTextView;
         TextSwitcher tempTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainTempTextView;
         TextSwitcher windTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainWindTextView;
-        setupTextSwitcher(descTextSwitcher, R.style.TempTextView);
-        setupTextSwitcher(humidityTextSwitcher, R.style.TempTextView);
+        setupTextSwitcher(descTextSwitcher, R.style.DescTextView);
+        setupTextSwitcher(humidityTextSwitcher, R.style.HumidityTextView);
         setupTextSwitcher(tempTextSwitcher, R.style.TempTextView);
-        setupTextSwitcher(windTextSwitcher, R.style.TempTextView);
-
-
+        setupTextSwitcher(windTextSwitcher, R.style.WindSpeedTextView);
 
     }
 
     private void setupTextSwitcher(TextSwitcher switcher, int style){
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
-        switcher.setFactory(new TextViewSwitcher(this, style, true, typeface));
+        switcher.setFactory(new TextViewSwitcher(this, style, true, null));
         switcher.setInAnimation(MainActivity.this, R.anim.slide_in_right);
         switcher.setOutAnimation(MainActivity.this, R.anim.slide_out_left);
     }

@@ -19,4 +19,19 @@
         <item name="android:textColor">@color/grey_10</item>
     </style>
 
+    <style name="DescTextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/grey_10</item>
+    </style>
+
+    <style name="HumidityTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/grey_10</item>
+    </style>
+
+    <style name="WindSpeedTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/grey_10</item>
+    </style>
+
 </resources>
