@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextSwitcher;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.octopus.stormly.databinding.MainActivityBinding;
+import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +26,29 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainActivityBinding.activityMainToolbarLayout.appToolbar);
         initSearchView();
         initSwipeRefreshLayout();
+        initTextSwitchers();
 
+    }
+
+    private void initTextSwitchers() {
+        TextSwitcher descTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainDescTextView;
+        TextSwitcher humidityTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainHumidityTextView;
+        TextSwitcher tempTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainTempTextView;
+        TextSwitcher windTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainWindTextView;
+        setupTextSwitcher(descTextSwitcher, R.style.TempTextView);
+        setupTextSwitcher(humidityTextSwitcher, R.style.TempTextView);
+        setupTextSwitcher(tempTextSwitcher, R.style.TempTextView);
+        setupTextSwitcher(windTextSwitcher, R.style.TempTextView);
+
+
+
+    }
+
+    private void setupTextSwitcher(TextSwitcher switcher, int style){
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Vazir.ttf");
+        switcher.setFactory(new TextViewSwitcher(this, style, true, typeface));
+        switcher.setInAnimation(MainActivity.this, R.anim.slide_in_right);
+        switcher.setOutAnimation(MainActivity.this, R.anim.slide_out_left);
     }
 
     private void initSwipeRefreshLayout() {
