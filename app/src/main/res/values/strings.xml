@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Stormly</string>
+    <string name="search_for_a_city_label">Search for a city</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="next_4_days_hourly">Next 4 days</string>
+    <string name="next_15_days_label">Next 15 days</string>
+    <string name="current_weather">Today</string>
 </resources>
