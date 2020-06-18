@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mainActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         setSupportActionBar(mainActivityBinding.activityMainToolbarLayout.appToolbar);
+        mainActivityBinding.activityMainToolbarLayout.setLocationName("Cairo, EG");
         initSearchView();
         initSwipeRefreshLayout();
         initTextSwitchers();
