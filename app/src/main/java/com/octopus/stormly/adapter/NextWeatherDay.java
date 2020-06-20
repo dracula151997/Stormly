@@ -6,16 +6,18 @@ public class NextWeatherDay extends AbstractListItem {
     private String minTemp;
     private String maxTemp;
     private int icon;
+    private boolean randomBackground;
 
     public NextWeatherDay() {
     }
 
-    public NextWeatherDay(String temp, String day, String minTemp, String maxTemp, int icon) {
+    public NextWeatherDay(String temp, String day, String minTemp, String maxTemp, int icon, boolean  randomBackground) {
         this.temp = temp;
         this.day = day;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
         this.icon = icon;
+        this.randomBackground = randomBackground;
     }
 
     public String getTemp() {
@@ -56,5 +58,13 @@ public class NextWeatherDay extends AbstractListItem {
 
     public void setIcon(int icon) {
         this.icon = icon;
+    }
+
+    public void setRandomBackground(boolean randomBackground) {
+        this.randomBackground = randomBackground;
+    }
+
+    public boolean isRandomBackground() {
+        return randomBackground;
     }
 }

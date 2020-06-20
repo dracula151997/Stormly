@@ -1,4 +1,4 @@
-package com.project.semicolon.recyclerviewdatabinding;
+package com.octopus.stormly.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,8 +10,6 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.stormly.BR;
-import com.octopus.stormly.adapter.AbstractListItem;
-import com.octopus.stormly.adapter.OnListItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

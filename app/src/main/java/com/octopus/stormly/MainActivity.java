@@ -1,20 +1,23 @@
 package com.octopus.stormly;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextSwitcher;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.octopus.stormly.adapter.GenericAdapter;
+import com.octopus.stormly.adapter.NextWeatherDay;
 import com.octopus.stormly.databinding.MainActivityBinding;
 import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         initSearchView();
         initSwipeRefreshLayout();
         initTextSwitchers();
+        initRecyclerView();
 
         settingDefaultData();
         LottieAnimationView lottieView = mainActivityBinding.activityMainContentMainLayout.contentMainWeatherAnimationView;
@@ -38,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
         lottieView.playAnimation();
 
 
+    }
+
+    private void initRecyclerView() {
+        List<NextWeatherDay> days = new ArrayList<>();
+        days.add(new NextWeatherDay("10", "Friday", "5", "11", R.drawable.ic_baseline_menu_24, true));
+        days.add(new NextWeatherDay("10", "Saturday", "2", "14", R.drawable.ic_baseline_menu_24, true));
+        days.add(new NextWeatherDay("10", "Sunday", "-10", "6", R.drawable.ic_baseline_menu_24, true));
+
+        GenericAdapter<NextWeatherDay> adapter = new GenericAdapter<>(R.layout.list_item_weather_day);
+        adapter.addList(days);
+
+        mainActivityBinding.activityMainContentMainLayout.contentMainNextWeatherRecyclerView.setAdapter(adapter);
     }
 
     private void settingDefaultData() {
@@ -62,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setupTextSwitcher(TextSwitcher switcher, int style){
+    private void setupTextSwitcher(TextSwitcher switcher, int style) {
         switcher.setFactory(new TextViewSwitcher(this, style, true, null));
         switcher.setInAnimation(MainActivity.this, R.anim.slide_in_right);
         switcher.setOutAnimation(MainActivity.this, R.anim.slide_out_left);

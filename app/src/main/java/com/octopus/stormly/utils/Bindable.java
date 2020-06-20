@@ -2,13 +2,21 @@ package com.octopus.stormly.utils;
 
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextSwitcher;
 
 import androidx.annotation.AnimRes;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 
+import com.octopus.stormly.Colors;
 import com.octopus.stormly.MainActivity;
 import com.octopus.stormly.R;
+
+import java.util.Random;
+
+import static com.octopus.stormly.Colors.colors;
 
 public class Bindable {
 
@@ -16,5 +24,18 @@ public class Bindable {
     public static void setText(TextSwitcher switcher, String text){
         switcher.setText(text);
 
+    }
+
+    @BindingAdapter(value = "generateBackground")
+    public static void generate(CardView view, boolean generate){
+        if (generate){
+            Log.d("Bindable", "generate: Generate");
+            int[] colors = Colors.colors;
+            Random random = new Random();
+            int i = random.nextInt(colors.length - 1);
+            int randomColor = colors[i];
+            Log.d("Bindable", "generate: " + randomColor);
+            view.setCardBackgroundColor(randomColor);
+        }
     }
 }
