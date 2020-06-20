@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="temp"
@@ -182,6 +182,8 @@
                     android:id="@+id/content_main_next_weather_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_weather_day"
                     android:orientation="horizontal" />
 
             </LinearLayout>
