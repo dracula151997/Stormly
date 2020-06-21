@@ -11,8 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.octopus.stormly.adapter.GenericAdapter;
-import com.octopus.stormly.adapter.NextWeatherDay;
 import com.octopus.stormly.databinding.MainActivityBinding;
+import com.octopus.stormly.model.fivedayweather.FiveDayResponse;
 import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
 
@@ -45,25 +45,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        List<NextWeatherDay> days = new ArrayList<>();
-        days.add(new NextWeatherDay("10", "Friday", "5", "11", R.drawable.ic_baseline_menu_24, true));
-        days.add(new NextWeatherDay("10", "Saturday", "2", "14", R.drawable.ic_baseline_menu_24, true));
-        days.add(new NextWeatherDay("10", "Sunday", "-10", "6", R.drawable.ic_baseline_menu_24, true));
+        //TODO getting data from api and display it in the recyclerview
 
-        GenericAdapter<NextWeatherDay> adapter = new GenericAdapter<>(R.layout.list_item_weather_day);
-        adapter.addList(days);
 
-        mainActivityBinding.activityMainContentMainLayout.contentMainNextWeatherRecyclerView.setAdapter(adapter);
     }
 
     private void settingDefaultData() {
         String tempValue = String.format(Locale.getDefault(), "%.0f", 10.5);
         String humidityValue = String.format(Locale.getDefault(), "%d%%", 5);
         String windSpeedValue = String.format(Locale.getDefault(), "%.0f km/hr", 10.0);
-        mainActivityBinding.activityMainContentMainLayout.setDesc("Rainy");
-        mainActivityBinding.activityMainContentMainLayout.setTemp(tempValue);
-        mainActivityBinding.activityMainContentMainLayout.setHumidity(humidityValue);
-        mainActivityBinding.activityMainContentMainLayout.setWind(windSpeedValue);
+
+        //TODO get current weather data from api and display it
     }
 
     private void initTextSwitchers() {

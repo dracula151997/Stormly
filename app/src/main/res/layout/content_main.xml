@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="temp"
-            type="String" />
-
-        <variable
-            name="desc"
-            type="String" />
-
-        <variable
-            name="humidity"
-            type="String" />
-
-        <variable
-            name="wind"
-            type="String" />
+       <variable
+           name="weather"
+           type="com.octopus.stormly.model.currentweather.CurrentWeatherResponse" />
 
 
     </data>
@@ -64,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        switcherText="@{temp}"
+                        switcherText="@{weather.main.tempAsString}"
                         android:textAlignment="center" />
 
                     <TextSwitcher
@@ -72,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        switcherText="@{desc}"
+                        switcherText="@{weather.weather.get(0).description}"
                         android:textAlignment="center" />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -108,7 +96,7 @@
                                     android:id="@+id/content_main_humidity_text_view"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    switcherText="@{humidity}"
+                                    switcherText="@{weather.main.humidityAsString}"
                                     android:layout_gravity="center" />
 
                             </LinearLayout>
@@ -135,7 +123,7 @@
                                     android:id="@+id/content_main_wind_text_view"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    switcherText="@{wind}"
+                                    switcherText="@{weather.wind.windSpeed}"
                                     android:layout_gravity="center" />
 
                             </LinearLayout>

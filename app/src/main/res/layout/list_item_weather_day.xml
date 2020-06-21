@@ -5,7 +5,7 @@
 
         <variable
             name="obj"
-            type="com.octopus.stormly.adapter.NextWeatherDay" />
+            type="com.octopus.stormly.model.fivedayweather.ItemHourly" />
 
     </data>
 
@@ -20,7 +20,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
-            generateBackground="@{obj.randomBackground}"
+            generateBackground="true"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layoutDirection="ltr"
-                    android:text="@{obj.temp}"
+                    android:text="@{obj.main.tempAsString}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <LinearLayout
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layoutDirection="ltr"
-                            android:text="@{obj.minTemp}" />
+                            android:text="@{obj.main.minTempAsString}" />
                     </LinearLayout>
 
 
@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layoutDirection="ltr"
-                            android:text="@{obj.maxTemp}" />
+                            android:text="@{obj.main.maxTempAsString}" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -5,5 +5,5 @@
     <string name="wind">Wind</string>
     <string name="next_4_days_hourly">Next 4 days</string>
     <string name="next_15_days_label">Next 15 days</string>
-    <string name="current_weather">Today</string>
+    <string name="current_weather">Current Weather</string>
 </resources>
