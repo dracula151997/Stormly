@@ -7,6 +7,11 @@
             name="obj"
             type="com.octopus.stormly.model.fivedayweather.ItemHourly" />
 
+        <variable
+            name="v"
+            type="android.view.View" />
+
+
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,7 +25,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
-            generateBackground="true"
+            generateBackground="@{obj.generateBackground}"
+            android:onClick="@{(view) -> obj.listItemClickListener.onItemClicked(view, obj.currentPosition)}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -39,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{obj.day}"
+                    android:text="@{obj.time}"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatImageView

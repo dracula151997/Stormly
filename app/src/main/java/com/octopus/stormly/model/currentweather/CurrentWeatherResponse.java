@@ -132,4 +132,21 @@ public class CurrentWeatherResponse {
   public void setWind(Wind wind) {
     this.wind = wind;
   }
+
+  @Override
+  public String toString() {
+    return "CurrentWeatherResponse{" +
+            "dt=" + dt +
+            ", coord=" + coord +
+            ", weather=" + weather +
+            ", name='" + name + '\'' +
+            ", cod=" + cod +
+            ", main=" + main +
+            ", clouds=" + clouds +
+            ", id=" + id +
+            ", sys=" + sys +
+            ", base='" + base + '\'' +
+            ", wind=" + wind +
+            '}';
+  }
 }

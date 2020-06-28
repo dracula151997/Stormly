@@ -50,6 +50,7 @@ public class GenericAdapter<T extends AbstractListItem>
         T t = items.get(position);
         t.currentPosition = position;
         t.listItemClickListener = clickListener;
+        t.generateBackground = true;
         holder.bind(t);
 
     }

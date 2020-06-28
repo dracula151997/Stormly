@@ -2,6 +2,8 @@ package com.octopus.stormly;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextSwitcher;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +13,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.octopus.stormly.adapter.GenericAdapter;
+import com.octopus.stormly.adapter.OnListItemClickListener;
 import com.octopus.stormly.databinding.MainActivityBinding;
+import com.octopus.stormly.enums.AssetsFile;
 import com.octopus.stormly.model.fivedayweather.FiveDayResponse;
+import com.octopus.stormly.model.fivedayweather.ItemHourly;
+import com.octopus.stormly.utils.Serializer;
 import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnListItemClickListener {
+    private static final String TAG = MainActivity.class.getName();
     private MainActivityBinding mainActivityBinding;
 
 
@@ -45,8 +51,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
+        String jsonArray = Serializer.readJsonFromAsset(this, AssetsFile.HOURLY_FORECAST_FILE.getFileName());
+        FiveDayResponse response = Serializer.toObject(jsonArray, FiveDayResponse.class);
+        List<ItemHourly> list = response.getList();
         //TODO getting data from api and display it in the recyclerview
+        GenericAdapter<ItemHourly> genericAdapter = new GenericAdapter<>(R.layout.list_item_weather_day);
+        genericAdapter.setClickListener(this);
+        genericAdapter.addList(list);
 
+        mainActivityBinding.activityMainContentMainLayout.contentMainNextWeatherRecyclerView.setAdapter(genericAdapter);
 
     }
 
@@ -116,6 +129,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+
+    @Override
+    public void onItemClicked(View view, int position) {
+        Log.d(TAG, "onItemClicked: ");
+        WeatherInfoBottomSheet bottomSheet = new WeatherInfoBottomSheet();
+        bottomSheet.show(getSupportFragmentManager(), WeatherInfoBottomSheet.class.getName());
 
     }
 }
