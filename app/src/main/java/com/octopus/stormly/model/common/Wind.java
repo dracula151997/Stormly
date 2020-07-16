@@ -27,7 +27,7 @@ public class Wind {
   }
 
   public String getWindSpeed(){
-    return String.valueOf(speed);
+    return speed + "km/h";
 
   }
 

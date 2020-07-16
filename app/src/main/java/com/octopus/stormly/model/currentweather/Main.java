@@ -1,5 +1,7 @@
 package com.octopus.stormly.model.currentweather;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Main {
@@ -82,11 +84,15 @@ public class Main {
   }
 
   public String getTempAsString(){
-    return String.valueOf(temp);
+    double celsius = temp - 273;
+    Log.d("Main", "getTempAsString: " + celsius);
+    Log.d("Main", "getTempAsString: original temp: " + temp);
+    return Math.floor(celsius) + "\u2103";
 
   }
 
   public String getHumidityAsString(){
-    return String.valueOf(humidity);
+    return humidity + "%";
   }
+
 }

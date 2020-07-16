@@ -10,12 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.octopus.stormly.adapter.GenericAdapter;
 import com.octopus.stormly.adapter.OnListItemClickListener;
 import com.octopus.stormly.databinding.MainActivityBinding;
 import com.octopus.stormly.enums.AssetsFile;
+import com.octopus.stormly.model.currentweather.CurrentWeatherResponse;
 import com.octopus.stormly.model.fivedayweather.FiveDayResponse;
 import com.octopus.stormly.model.fivedayweather.ItemHourly;
 import com.octopus.stormly.utils.Serializer;
@@ -23,31 +23,42 @@ import com.octopus.stormly.utils.TextViewSwitcher;
 import com.octopus.stormly.utils.WeatherLogger;
 
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements OnListItemClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private MainActivityBinding mainActivityBinding;
+    private MainActivityBinding bind;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        setSupportActionBar(mainActivityBinding.activityMainToolbarLayout.appToolbar);
-        mainActivityBinding.activityMainToolbarLayout.setLocationName("Cairo, EG");
+        setSupportActionBar(bind.activityMainToolbarLayout.appToolbar);
+
         initSearchView();
         initSwipeRefreshLayout();
         initTextSwitchers();
         initRecyclerView();
 
-        settingDefaultData();
-        LottieAnimationView lottieView = mainActivityBinding.activityMainContentMainLayout.contentMainWeatherAnimationView;
-        lottieView.setAnimation(R.raw.rainy_weather);
-        lottieView.playAnimation();
+        showCurrentWeatherData();
+        showFiveDaysWeatherData();
 
 
+    }
+
+    private void showFiveDaysWeatherData() {
+        String hourlyJson = Serializer.readJsonFromAsset(this, AssetsFile.HOURLY_FORECAST_FILE.getFileName());
+        List<FiveDayResponse> fiveDayResponses = Serializer.toListOfObject(hourlyJson, FiveDayResponse.class);
+        Log.d(TAG, "showFiveDaysWeatherData: " + fiveDayResponses);
+    }
+
+    private void showCurrentWeatherData() {
+        String currentWeatherFile =
+                Serializer.readJsonFromAsset(this, AssetsFile.CURRENT_WEATHER_FILE.getFileName());
+        CurrentWeatherResponse weatherItem = Serializer.toObject(currentWeatherFile, CurrentWeatherResponse.class);
+        bind.activityMainContentMainLayout.setWeather(weatherItem);
+        bind.activityMainToolbarLayout.setLocationName(weatherItem.getName() + ", " + weatherItem.getSys().getCountry());
     }
 
     private void initRecyclerView() {
@@ -59,23 +70,15 @@ public class MainActivity extends AppCompatActivity implements OnListItemClickLi
         genericAdapter.setClickListener(this);
         genericAdapter.addList(list);
 
-        mainActivityBinding.activityMainContentMainLayout.contentMainNextWeatherRecyclerView.setAdapter(genericAdapter);
+        bind.activityMainContentMainLayout.contentMainNextWeatherRecyclerView.setAdapter(genericAdapter);
 
-    }
-
-    private void settingDefaultData() {
-        String tempValue = String.format(Locale.getDefault(), "%.0f", 10.5);
-        String humidityValue = String.format(Locale.getDefault(), "%d%%", 5);
-        String windSpeedValue = String.format(Locale.getDefault(), "%.0f km/hr", 10.0);
-
-        //TODO get current weather data from api and display it
     }
 
     private void initTextSwitchers() {
-        TextSwitcher descTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainDescTextView;
-        TextSwitcher humidityTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainHumidityTextView;
-        TextSwitcher tempTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainTempTextView;
-        TextSwitcher windTextSwitcher = mainActivityBinding.activityMainContentMainLayout.contentMainWindTextView;
+        TextSwitcher descTextSwitcher = bind.activityMainContentMainLayout.contentMainDescTextView;
+        TextSwitcher humidityTextSwitcher = bind.activityMainContentMainLayout.contentMainHumidityTextView;
+        TextSwitcher tempTextSwitcher = bind.activityMainContentMainLayout.contentMainTempTextView;
+        TextSwitcher windTextSwitcher = bind.activityMainContentMainLayout.contentMainWindTextView;
         setupTextSwitcher(descTextSwitcher, R.style.DescTextView);
         setupTextSwitcher(humidityTextSwitcher, R.style.HumidityTextView);
         setupTextSwitcher(tempTextSwitcher, R.style.TempTextView);
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnListItemClickLi
     }
 
     private void initSwipeRefreshLayout() {
-        final SwipeRefreshLayout swipeLayout = mainActivityBinding.activityMainSwipeRefreshLayout;
+        final SwipeRefreshLayout swipeLayout = bind.activityMainSwipeRefreshLayout;
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light);
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnListItemClickLi
     }
 
     private void initSearchView() {
-        MaterialSearchView searchView = mainActivityBinding.activityMainToolbarLayout.activityMainSearchView;
+        MaterialSearchView searchView = bind.activityMainToolbarLayout.activityMainSearchView;
         searchView.setHint("Search");
         searchView.setCursorDrawable(R.drawable.ic_baseline_search_24);
         searchView.setEllipsize(true);

@@ -10,6 +10,7 @@ import androidx.annotation.AnimRes;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.octopus.stormly.Colors;
 import com.octopus.stormly.MainActivity;
 import com.octopus.stormly.R;
@@ -38,4 +39,35 @@ public class Bindable {
             view.setCardBackgroundColor(randomColor);
         }
     }
+
+    @BindingAdapter(value = "setWeatherAnimation")
+    public static void setWeatherAnimation(LottieAnimationView animationView, int weatherCode){
+        Log.d("Bindable", "setWeatherAnimation: weather code " + weatherCode);
+        int rawRes;
+            if (weatherCode / 100 == 2) {
+                rawRes =  R.raw.storm_weather;
+            } else if (weatherCode / 100 == 3) {
+                rawRes =  R.raw.rainy_weather;
+            } else if (weatherCode / 100 == 5) {
+                rawRes = R.raw.rainy_weather;
+            } else if (weatherCode / 100 == 6) {
+                rawRes = R.raw.snow_weather;
+            } else if (weatherCode / 100 == 7) {
+                rawRes = R.raw.unknown;
+            } else if (weatherCode == 800) {
+                rawRes = R.raw.clear_day;
+            } else if (weatherCode == 801) {
+                rawRes = R.raw.few_clouds;
+            } else if (weatherCode == 803) {
+                rawRes = R.raw.broken_clouds;
+            } else if (weatherCode / 100 == 8) {
+                rawRes = R.raw.cloudy_weather;
+            }else{
+                rawRes = R.raw.unknown;
+            }
+
+            animationView.setAnimation(rawRes);
+            animationView.playAnimation();
+        }
+
 }

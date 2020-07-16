@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        switcherText="@{weather.weather.get(0).description}"
+                        switcherText="@{weather.weather.get(0).main}"
                         android:textAlignment="center" />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -135,6 +135,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            setWeatherAnimation="@{weather.weather.get(0).id}"
                             app:lottie_autoPlay="true"
                             app:lottie_loop="true" />
 
