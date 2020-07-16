@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnListItemClickLi
 
     private void showFiveDaysWeatherData() {
         String hourlyJson = Serializer.readJsonFromAsset(this, AssetsFile.HOURLY_FORECAST_FILE.getFileName());
-        List<FiveDayResponse> fiveDayResponses = Serializer.toListOfObject(hourlyJson, FiveDayResponse.class);
+        FiveDayResponse fiveDayResponses = Serializer.toObject(hourlyJson, FiveDayResponse.class);
         Log.d(TAG, "showFiveDaysWeatherData: " + fiveDayResponses);
     }
 

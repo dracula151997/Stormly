@@ -1,5 +1,8 @@
 package com.octopus.stormly.model.fivedayweather;
 
+import android.text.format.DateFormat;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 import com.octopus.stormly.adapter.AbstractListItem;
 import com.octopus.stormly.model.common.Clouds;
@@ -7,6 +10,7 @@ import com.octopus.stormly.model.common.WeatherItem;
 import com.octopus.stormly.model.common.Wind;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -106,7 +110,8 @@ public class ItemHourly extends AbstractListItem {
   }
 
   public String getTime(){
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    return simpleDateFormat.format(dt);
+    Log.d("TAG", "getTime: " + dt);
+    String format = DateFormat.format("h:mm a", dt * 1000).toString();
+    return format;
   }
 }

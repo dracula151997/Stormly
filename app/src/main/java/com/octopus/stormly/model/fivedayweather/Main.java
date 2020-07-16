@@ -1,6 +1,10 @@
 package com.octopus.stormly.model.fivedayweather;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Locale;
 
 public class Main {
 
@@ -93,14 +97,19 @@ public class Main {
   }
 
   public String getTempAsString(){
-    return String.valueOf(temp);
+    double celsius = temp - 273;
+    return String.format(Locale.getDefault(), "%.2f\u2103", celsius);
   }
 
   public String getMinTempAsString(){
-    return String.valueOf(tempMin);
+    Log.d("TAG", "getMinTempAsString: " + tempMin);
+    double celsius = tempMin - 273;
+    return String.format(Locale.getDefault(), "%.2f\u2103", celsius);
   }
 
   public String getMaxTempAsString(){
-    return String.valueOf(tempMax);
+    Log.d("TAG", "getMaxTempAsString: " + tempMax);
+    double celsius = tempMax - 273;
+    return String.format(Locale.getDefault(), "%.2f\u2103", celsius);
   }
 }

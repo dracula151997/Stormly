@@ -42,7 +42,7 @@ public class Bindable {
 
     @BindingAdapter(value = "setWeatherAnimation")
     public static void setWeatherAnimation(LottieAnimationView animationView, int weatherCode){
-        Log.d("Bindable", "setWeatherAnimation: weather code " + weatherCode);
+        Log.d("TAG", "setWeatherAnimation: " + weatherCode);
         int rawRes;
             if (weatherCode / 100 == 2) {
                 rawRes =  R.raw.storm_weather;
